@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mans Fighter · Painel executivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f1ea;--card:#fff;--ink:#151515;--mut:#7b7a72;--line:#e4e2d9;--gold:#b8985a;--inv:#151515;--invt:#fff;--ok:#151515;
+--serif:"Instrument Serif",Georgia,"Times New Roman",serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121211;--card:#1b1b19;--ink:#f1efe8;--mut:#9a988e;--line:#2d2c28;--gold:#c9a96a;--inv:#f1efe8;--invt:#151515;--ok:#f1efe8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121211;--card:#1b1b19;--ink:#f1efe8;--mut:#9a988e;--line:#2d2c28;--gold:#c9a96a;--inv:#f1efe8;--invt:#151515;--ok:#f1efe8;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.top{background:var(--card);border-bottom:1px solid var(--line)}
+.bar{max-width:1240px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;gap:18px}
+.logo{font:400 26px/1 var(--serif)}.logo span{color:var(--gold)}
+.sub{font-size:10px;letter-spacing:.16em;color:var(--mut);padding-left:18px;border-left:1px solid var(--line)}
+.sp{flex:1}
+.demo{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:6px}.demo i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.user{display:flex;align-items:center;gap:10px;font-size:12px;line-height:1.2}.user small{color:var(--mut);display:block;font-size:11px}
+.av{width:30px;height:30px;border-radius:50%;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:11px}
+.nav{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;gap:26px;align-items:center;font-size:12.5px;color:var(--mut)}
+.nav a{padding:12px 0;color:inherit;text-decoration:none;border-bottom:2px solid transparent}
+.nav a[aria-current]{color:var(--ink);border-color:var(--gold)}
+main{max-width:1240px;margin:0 auto;padding:30px 28px 18px}
+.eyebrow{font-size:10px;letter-spacing:.16em;color:var(--gold);font-weight:500}
+h1{font:400 clamp(34px,5vw,50px)/1.05 var(--serif);margin:10px 0 8px;letter-spacing:-.01em}
+.lead{color:var(--mut);margin:0;font-size:12.5px}
+.head{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.acts{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.acts div{display:flex;gap:10px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:9px 14px;font-size:12.5px;cursor:pointer}
+.btn.dk{background:var(--inv);color:var(--invt);border-color:var(--inv)}
+.note{font-size:11px;color:var(--mut)}
+.filters{display:flex;gap:10px;align-items:center;margin:22px 0 16px;flex-wrap:wrap}
+.filters .btn{padding:7px 12px;font-size:12px}.filters .note:first-child{margin-right:4px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.kpi{position:relative;min-height:128px}
+.kpi.hero{background:var(--inv);color:var(--invt);border-color:var(--inv)}
+.kpi .lb{font-size:12px;color:var(--mut)}.kpi.hero .lb,.kpi.hero .ft{color:color-mix(in srgb,var(--invt) 65%,transparent)}
+.kpi .v{font:400 38px/1.1 var(--serif);margin:12px 0 8px;letter-spacing:-.01em}
+.kpi svg.sp1{position:absolute;right:16px;top:58px;width:82px;height:34px}
+.ft{font-size:11px;color:var(--mut)}.ft b{color:var(--ink);font-weight:500}.kpi.hero .ft b{color:var(--invt)}
+.row{display:grid;grid-template-columns:1.9fr 1fr;gap:14px;margin-top:14px}
+h2{font:400 22px/1.2 var(--serif);margin:0}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.leg{display:flex;gap:14px;align-items:center;font-size:11px;color:var(--mut)}.leg i{display:inline-block;width:14px;height:2px;background:var(--gold);vertical-align:middle;margin-right:5px}.leg i.d{background:repeating-linear-gradient(90deg,var(--mut) 0 3px,transparent 3px 5px)}
+.chart{width:100%;height:auto;margin-top:10px}
+.chart text{font:10px var(--sans);fill:var(--mut)}
+.best{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);margin-top:6px;padding-top:14px}
+.best .ic{width:30px;height:30px;border-radius:6px;background:var(--bg);display:grid;place-items:center;color:var(--gold)}
+.best p{margin:0;font-size:11.5px;color:var(--mut)}.best b{display:block;font-size:12px;color:var(--ink);font-weight:600}
+.best .big{margin-left:auto;font:400 26px var(--serif);color:var(--gold)}
+.badge{font-size:10.5px;background:color-mix(in srgb,var(--gold) 18%,transparent);color:var(--gold);padding:3px 9px;border-radius:4px;border:1px solid color-mix(in srgb,var(--gold) 40%,transparent)}
+.goal{margin-top:16px}.goal .t{display:flex;justify-content:space-between;font-size:12.5px;font-weight:500}.goal .t span:last-child{color:var(--gold);font-weight:600}
+.goal.ok .t span:last-child{color:var(--ink)}
+.track{height:4px;background:var(--line);margin:7px 0 5px;border-radius:2px}.track i{display:block;height:100%;border-radius:2px;background:var(--gold)}.goal.ok .track i{background:var(--ok)}
+.goal .f{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut)}
+.link{display:flex;justify-content:space-between;margin-top:18px;font-size:12px;color:var(--gold);text-decoration:none;font-weight:500}
+.tw{overflow-x:auto;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+th{font-size:9.5px;letter-spacing:.1em;color:var(--mut);font-weight:500;text-align:right;padding:10px 8px;border-bottom:1px solid var(--line)}
+td{padding:13px 8px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}td:first-child b{display:block;font-weight:600}td small{color:var(--mut);font-size:10.5px}
+td.g{color:var(--gold)}tfoot td{font-weight:600;border:0}
+.dot::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ok);margin-right:6px}.dot.g::before{background:var(--gold)}
+.stack{display:flex;height:10px;margin:16px 0}.stack i{display:block}
+.ch2 li{list-style:none;display:flex;align-items:center;gap:8px;padding:8px 0;font-size:12px}.ch2 ul{padding:0;margin:0}
+.ch2 li span.sw{width:7px;height:7px}.ch2 li b{margin-left:auto;font-weight:500}.ch2 li em{font-style:normal;color:var(--mut);width:36px;text-align:right}
+.radar{background:var(--inv);color:var(--invt);border-radius:8px;padding:16px 18px;margin-top:14px;font-size:12.5px}
+.radar .k{font-size:10px;letter-spacing:.14em;color:var(--gold);margin-bottom:8px}.radar small{display:block;margin-top:8px;opacity:.6;font-size:10.5px}
+footer{max-width:1240px;margin:0 auto;padding:14px 28px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--mut)}
+@media(max-width:980px){.grid4{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.sub,.demo,.nav .sp+a{display:none}}
+@media(max-width:560px){.grid4{grid-template-columns:1fr}.bar,.nav,main,footer{padding-left:16px;padding-right:16px}.acts{align-items:flex-start}.user div{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="bar">
+  <div class="logo">Mans Fighter</div><div class="sub">BUSINESS INTELLIGENCE</div><div class="sp"></div>
+  <div class="demo"><i></i>Ambiente demonstrativo</div>
+  <div class="user"><span class="av">AC</span><div>Ana Costa<small>Diretora executiva</small></div></div>
+ </div>
+ <nav class="nav" aria-label="Seções">
+  <a href="#" aria-current="page">Visão geral</a><a href="#">Financeiro</a><a href="#">Comercial</a><a href="#">Operações</a><a href="#">Clientes</a>
+  <span class="sp"></span><a href="#">Personalizar painel</a>
+ </nav>
+</header>
+<main>
+ <div class="head">
+  <div>
+   <div class="eyebrow">PAINEL EXECUTIVO / SETEMBRO 2026</div>
+   <h1>Clareza para decidir. Visão para crescer.</h1>
+   <p class="lead">Os principais resultados da Mans Fighter, conectados numa única visão.</p>
+  </div>
+  <div class="acts"><div><button class="btn">Setembro de 2026</button><button class="btn dk">Exportar relatório</button></div>
+   <span class="note">Fechamento mensal · Atualizado em 01 out., 09:30</span></div>
+ </div>
+ <div class="filters"><span class="note">Visão consolidada</span>
+  <button class="btn">Todas as unidades</button><button class="btn">Todos os canais</button>
+  <span class="sp" style="flex:1"></span><span class="note">Comparativo: agosto de 2026</span></div>
+
+ <section class="grid4" aria-label="Indicadores">
+  <div class="card kpi hero"><div class="lb">Receita líquida</div><div class="v">R$ 2,48 mi</div><svg class="sp1" data-s="1.9,2.1,2.17,2.1,2.2,2.48" data-c="#c9a96a"></svg><div class="ft"><b>↗ +12,7%</b> vs. R$ 2,20 mi em agosto</div></div>
+  <div class="card kpi"><div class="lb">EBITDA</div><div class="v">R$ 620 mil</div><svg class="sp1" data-s="1.2,1.5,1.4,1.7,1.9,2.4"></svg><div class="ft"><b>↗ +25,6%</b> Margem de 25,0% · +2,6 p.p.</div></div>
+  <div class="card kpi"><div class="lb">Pedidos faturados</div><div class="v">1.240</div><svg class="sp1" data-s="1.8,2,1.9,2.1,2.0,2.4"></svg><div class="ft"><b>↗ +7,8%</b> Ticket médio de R$ 2.000</div></div>
+  <div class="card kpi"><div class="lb">Entregas no prazo</div><div class="v">96,8%</div><svg class="sp1" data-s="1.6,1.9,1.8,2.1,2.2,2.5"></svg><div class="ft"><b>↗ +1,4 p.p.</b> Meta de 98,0% · −1,2 p.p.</div></div>
+ </section>
+
+ <div class="row">
+  <section class="card" aria-labelledby="h-cres">
+   <div class="ch"><div><h2 id="h-cres">Crescimento com consistência</h2><span class="note">Receita líquida · R$ milhões</span></div>
+    <div class="leg"><span><i></i>Realizado</span><span><i class="d"></i>Meta</span><button class="btn" style="padding:5px 10px;font-size:11px">Últimos 6 meses</button></div></div>
+   <svg id="chart" class="chart" viewBox="0 0 640 250" role="img" aria-label="Receita líquida de abril a setembro, de R$ 1,92 mi a R$ 2,48 mi"></svg>
+   <div class="best"><span class="ic">↗</span><p><b>Melhor resultado do semestre</b>Receita cresce 29,2% desde abril. Faltam R$ 130 mil para a meta de setembro.</p><span class="big">+29,2%</span></div>
+  </section>
+  <section class="card" aria-labelledby="h-met">
+   <div class="ch"><h2 id="h-met" style="font-size:19px">Metas de setembro</h2><span class="badge">2 de 4 superadas</span></div>
+   <div class="goal"><div class="t"><span>Receita líquida</span><span>95,4%</span></div><div class="track"><i style="width:95.4%"></i></div><div class="f"><span>R$ 2,48 mi / R$ 2,60 mi</span><span>Em atenção</span></div></div>
+   <div class="goal ok"><div class="t"><span>Margem EBITDA</span><span>104,2%</span></div><div class="track"><i style="width:100%"></i></div><div class="f"><span>25,0% / 24,0%</span><span>Superada</span></div></div>
+   <div class="goal"><div class="t"><span>Entregas no prazo</span><span>98,8%</span></div><div class="track"><i style="width:98.8%"></i></div><div class="f"><span>96,8% / 98,0%</span><span>Em atenção</span></div></div>
+   <div class="goal ok"><div class="t"><span>NPS de clientes</span><span>104,4%</span></div><div class="track"><i style="width:100%"></i></div><div class="f"><span>83 pontos / 80 pontos</span><span>Superada</span></div></div>
+   <a class="link" href="#"><span>Acompanhar plano de ação</span><span>→</span></a>
+  </section>
+ </div>
+
+ <div class="row">
+  <section class="card" aria-labelledby="h-op">
+   <div class="ch"><div><h2 id="h-op">A operação, de perto</h2><span class="note">Resultado consolidado por unidade de negócio</span></div><span class="note">Receita: maior para menor</span></div>
+   <div class="tw"><table>
+    <thead><tr><th>UNIDADE</th><th>RECEITA LÍQUIDA</th><th>PARTIC.</th><th>PEDIDOS</th><th>EBITDA</th><th>NO PRAZO</th></tr></thead>
+    <tbody>
+     <tr><td><b>São Paulo</b><small>SP · Sudeste</small></td><td><b style="display:inline">R$ 1.116.000</b></td><td>45%</td><td>558</td><td><b style="display:inline">R$ 279.000</b></td><td class="dot">98,0%</td></tr>
+     <tr><td><b>Rio de Janeiro</b><small>RJ · Sudeste</small></td><td><b style="display:inline">R$ 620.000</b></td><td>25%</td><td>310</td><td><b style="display:inline">R$ 155.000</b></td><td class="g dot g">96,0%</td></tr>
+     <tr><td><b>Minas Gerais</b><small>MG · Sudeste</small></td><td><b style="display:inline">R$ 496.000</b></td><td>20%</td><td>248</td><td><b style="display:inline">R$ 124.000</b></td><td class="g dot g">95,0%</td></tr>
+     <tr><td><b>Paraná</b><small>PR · Sul</small></td><td><b style="display:inline">R$ 248.000</b></td><td>10%</td><td>124</td><td><b style="display:inline">R$ 62.000</b></td><td class="g dot g">97,0%</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total Mans Fighter</td><td>R$ 2.480.000</td><td>100%</td><td>1.240</td><td>R$ 620.000</td><td>96,8%</td></tr></tfoot>
+   </table></div>
+  </section>
+  <section class="card ch2" aria-labelledby="h-can">
+   <div class="ch"><h2 id="h-can" style="font-size:19px">Receita por canal</h2><span class="note">SET. 2026</span></div>
+   <div class="stack" role="img" aria-label="Corporativo 55%, E-commerce 30%, Lojas próprias 15%"><i style="width:55%;background:var(--inv)"></i><i style="width:30%;background:var(--gold)"></i><i style="width:15%;background:var(--mut);opacity:.5"></i></div>
+   <ul>
+    <li><span class="sw" style="background:var(--inv)"></span>Corporativo<b>R$ 1.364.000</b><em>55%</em></li>
+    <li><span class="sw" style="background:var(--gold)"></span>E-commerce<b>R$ 744.000</b><em>30%</em></li>
+    <li><span class="sw" style="background:var(--mut);opacity:.5"></span>Lojas próprias<b>R$ 372.000</b><em>15%</em></li>
+   </ul>
+   <div class="radar"><div class="k">NO RADAR DA DIRETORIA</div>Priorizar a pontualidade em Minas Gerais: 95,0%, a 3,0 p.p. da meta.<small>Operações · Revisão em 05 out.</small></div>
+  </section>
+ </div>
+</main>
+<footer><span>Dados ilustrativos para demonstração. Valores em reais (BRL), salvo indicação.</span><span>MANS FIGHTER / INTELIGÊNCIA DE NEGÓCIOS / 2026</span></footer>
+<script>
+document.querySelectorAll("svg[data-s]").forEach(function(s){
+ var a=s.dataset.s.split(",").map(Number),mn=Math.min.apply(null,a),mx=Math.max.apply(null,a);
+ var p=a.map(function(v,i){return (i*(80/(a.length-1))+1).toFixed(1)+","+(32-(v-mn)/(mx-mn)*28).toFixed(1)}).join(" ");
+ s.setAttribute("viewBox","0 0 82 34");
+ s.innerHTML='<polyline points="'+p+'" fill="none" stroke="'+(s.dataset.c||"var(--gold)")+'" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>';
+});
+(function(){
+ var m=["Abr","Mai","Jun","Jul","Ago","Set"],r=[1.92,2.1,2.17,2.1,2.2,2.48],g=[1.95,2.12,2.27,2.4,2.5,2.6];
+ var x0=56,x1=600,y0=16,y1=196,X=function(i){return x0+i*(x1-x0)/5},Y=function(v){return y1-(v-1.5)/1.5*(y1-y0)};
+ var h="",t;
+ [1.5,2.0,2.5,3.0].forEach(function(v){h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)"/><text x="'+(x0-10)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+v.toFixed(1).replace(".",",")+'</text>'});
+ var pts=r.map(function(v,i){return X(i)+","+Y(v)}).join(" ");
+ h+='<polygon points="'+X(0)+','+y1+' '+pts+' '+X(5)+','+y1+'" fill="var(--gold)" opacity=".12"/>';
+ h+='<polyline points="'+g.map(function(v,i){return X(i)+","+Y(v)}).join(" ")+'" fill="none" stroke="var(--mut)" stroke-dasharray="4 4"/>';
+ h+='<polyline points="'+pts+'" fill="none" stroke="var(--gold)" stroke-width="2"/>';
+ r.forEach(function(v,i){h+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="'+(i==5?4:3)+'" fill="var(--gold)"/>'});
+ m.forEach(function(l,i){h+='<text x="'+X(i)+'" y="226" text-anchor="middle"'+(i==5?' style="fill:var(--ink);font-weight:600"':'')+'>'+l+'</text>'});
+ h+='<rect x="'+(X(5)-38)+'" y="'+(Y(2.48)-34)+'" width="76" height="24" rx="4" fill="var(--inv)"/><text x="'+X(5)+'" y="'+(Y(2.48)-18)+'" text-anchor="middle" style="fill:var(--invt);font-size:11px">R$ 2,48 mi</text>';
+ document.getElementById("chart").innerHTML=h;
+})();
+</script>
+</body>
+</html>
