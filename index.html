@@ -79,6 +79,17 @@ td.g{color:var(--gold)}tfoot td{font-weight:600;border:0}
 footer{max-width:1240px;margin:0 auto;padding:14px 28px 28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--mut)}
 @media(max-width:980px){.grid4{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}.sub,.demo,.nav .sp+a{display:none}}
 @media(max-width:560px){.grid4{grid-template-columns:1fr}.bar,.nav,main,footer{padding-left:16px;padding-right:16px}.acts{align-items:flex-start}.user div{display:none}}
+
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);padding:0;width:min(940px,94vw);max-height:90vh;overflow:hidden}
+dialog[open]{display:flex;flex-direction:column}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dh,.df{display:flex;gap:10px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}.dh{justify-content:space-between}.df{border:0;border-top:1px solid var(--line);flex-wrap:wrap}
+.db{overflow:auto;padding:6px 20px 18px}.db h3{font:400 18px var(--serif);margin:20px 0 8px}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.fl{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--mut)}.fl.w{grid-column:1/-1}
+.db input{font:inherit;font-size:12.5px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 8px;width:100%;min-width:0}
+.ed{min-width:640px}.ed th,.ed td{text-align:left;padding:4px 4px;border:0}.ed th{font-size:10px;letter-spacing:0}
+@media print{.nav,.acts,.filters{display:none!important}}
 </style>
 </head>
 <body>
@@ -90,43 +101,35 @@ footer{max-width:1240px;margin:0 auto;padding:14px 28px 28px;display:flex;justif
  </div>
  <nav class="nav" aria-label="Seções">
   <a href="#" aria-current="page">Visão geral</a><a href="#">Financeiro</a><a href="#">Comercial</a><a href="#">Operações</a><a href="#">Clientes</a>
-  <span class="sp"></span><a href="#">Personalizar painel</a>
+  <span class="sp"></span><a href="#" id="edit">Editar dados</a>
  </nav>
 </header>
 <main>
  <div class="head">
   <div>
-   <div class="eyebrow">PAINEL EXECUTIVO / SETEMBRO 2026</div>
+   <div class="eyebrow" id="eb"></div>
    <h1>Clareza para decidir. Visão para crescer.</h1>
    <p class="lead">Os principais resultados da Mans Fighter, conectados numa única visão.</p>
   </div>
-  <div class="acts"><div><button class="btn">Setembro de 2026</button><button class="btn dk">Exportar relatório</button></div>
-   <span class="note">Fechamento mensal · Atualizado em 01 out., 09:30</span></div>
+  <div class="acts"><div><button class="btn" id="per" type="button"></button><button class="btn dk" id="exp" type="button">Exportar relatório</button></div>
+   <span class="note" id="upd"></span></div>
  </div>
  <div class="filters"><span class="note">Visão consolidada</span>
   <button class="btn">Todas as unidades</button><button class="btn">Todos os canais</button>
-  <span class="sp" style="flex:1"></span><span class="note">Comparativo: agosto de 2026</span></div>
+  <span class="sp" style="flex:1"></span><span class="note" id="cmp"></span></div>
 
- <section class="grid4" aria-label="Indicadores">
-  <div class="card kpi hero"><div class="lb">Receita líquida</div><div class="v">R$ 2,48 mi</div><svg class="sp1" data-s="1.9,2.1,2.17,2.1,2.2,2.48" data-c="#c9a96a"></svg><div class="ft"><b>↗ +12,7%</b> vs. R$ 2,20 mi em agosto</div></div>
-  <div class="card kpi"><div class="lb">EBITDA</div><div class="v">R$ 620 mil</div><svg class="sp1" data-s="1.2,1.5,1.4,1.7,1.9,2.4"></svg><div class="ft"><b>↗ +25,6%</b> Margem de 25,0% · +2,6 p.p.</div></div>
-  <div class="card kpi"><div class="lb">Pedidos faturados</div><div class="v">1.240</div><svg class="sp1" data-s="1.8,2,1.9,2.1,2.0,2.4"></svg><div class="ft"><b>↗ +7,8%</b> Ticket médio de R$ 2.000</div></div>
-  <div class="card kpi"><div class="lb">Entregas no prazo</div><div class="v">96,8%</div><svg class="sp1" data-s="1.6,1.9,1.8,2.1,2.2,2.5"></svg><div class="ft"><b>↗ +1,4 p.p.</b> Meta de 98,0% · −1,2 p.p.</div></div>
- </section>
+ <section class="grid4" id="kpis" aria-label="Indicadores"></section>
 
  <div class="row">
   <section class="card" aria-labelledby="h-cres">
    <div class="ch"><div><h2 id="h-cres">Crescimento com consistência</h2><span class="note">Receita líquida · R$ milhões</span></div>
     <div class="leg"><span><i></i>Realizado</span><span><i class="d"></i>Meta</span><button class="btn" style="padding:5px 10px;font-size:11px">Últimos 6 meses</button></div></div>
    <svg id="chart" class="chart" viewBox="0 0 640 250" role="img" aria-label="Receita líquida de abril a setembro, de R$ 1,92 mi a R$ 2,48 mi"></svg>
-   <div class="best"><span class="ic">↗</span><p><b>Melhor resultado do semestre</b>Receita cresce 29,2% desde abril. Faltam R$ 130 mil para a meta de setembro.</p><span class="big">+29,2%</span></div>
+   <div class="best"><span class="ic">↗</span><p><b>Melhor resultado do semestre</b><span id="bt"></span></p><span class="big" id="bg"></span></div>
   </section>
   <section class="card" aria-labelledby="h-met">
-   <div class="ch"><h2 id="h-met" style="font-size:19px">Metas de setembro</h2><span class="badge">2 de 4 superadas</span></div>
-   <div class="goal"><div class="t"><span>Receita líquida</span><span>95,4%</span></div><div class="track"><i style="width:95.4%"></i></div><div class="f"><span>R$ 2,48 mi / R$ 2,60 mi</span><span>Em atenção</span></div></div>
-   <div class="goal ok"><div class="t"><span>Margem EBITDA</span><span>104,2%</span></div><div class="track"><i style="width:100%"></i></div><div class="f"><span>25,0% / 24,0%</span><span>Superada</span></div></div>
-   <div class="goal"><div class="t"><span>Entregas no prazo</span><span>98,8%</span></div><div class="track"><i style="width:98.8%"></i></div><div class="f"><span>96,8% / 98,0%</span><span>Em atenção</span></div></div>
-   <div class="goal ok"><div class="t"><span>NPS de clientes</span><span>104,4%</span></div><div class="track"><i style="width:100%"></i></div><div class="f"><span>83 pontos / 80 pontos</span><span>Superada</span></div></div>
+   <div class="ch"><h2 id="h-met" style="font-size:19px"><span id="hm"></span></h2><span class="badge" id="badge"></span></div>
+   <div id="goals"></div>
    <a class="link" href="#"><span>Acompanhar plano de ação</span><span>→</span></a>
   </section>
  </div>
@@ -136,48 +139,129 @@ footer{max-width:1240px;margin:0 auto;padding:14px 28px 28px;display:flex;justif
    <div class="ch"><div><h2 id="h-op">A operação, de perto</h2><span class="note">Resultado consolidado por unidade de negócio</span></div><span class="note">Receita: maior para menor</span></div>
    <div class="tw"><table>
     <thead><tr><th>UNIDADE</th><th>RECEITA LÍQUIDA</th><th>PARTIC.</th><th>PEDIDOS</th><th>EBITDA</th><th>NO PRAZO</th></tr></thead>
-    <tbody>
-     <tr><td><b>São Paulo</b><small>SP · Sudeste</small></td><td><b style="display:inline">R$ 1.116.000</b></td><td>45%</td><td>558</td><td><b style="display:inline">R$ 279.000</b></td><td class="dot">98,0%</td></tr>
-     <tr><td><b>Rio de Janeiro</b><small>RJ · Sudeste</small></td><td><b style="display:inline">R$ 620.000</b></td><td>25%</td><td>310</td><td><b style="display:inline">R$ 155.000</b></td><td class="g dot g">96,0%</td></tr>
-     <tr><td><b>Minas Gerais</b><small>MG · Sudeste</small></td><td><b style="display:inline">R$ 496.000</b></td><td>20%</td><td>248</td><td><b style="display:inline">R$ 124.000</b></td><td class="g dot g">95,0%</td></tr>
-     <tr><td><b>Paraná</b><small>PR · Sul</small></td><td><b style="display:inline">R$ 248.000</b></td><td>10%</td><td>124</td><td><b style="display:inline">R$ 62.000</b></td><td class="g dot g">97,0%</td></tr>
-    </tbody>
-    <tfoot><tr><td>Total Mans Fighter</td><td>R$ 2.480.000</td><td>100%</td><td>1.240</td><td>R$ 620.000</td><td>96,8%</td></tr></tfoot>
+    <tbody id="tb"></tbody>
+    <tfoot id="tf"></tfoot>
    </table></div>
   </section>
   <section class="card ch2" aria-labelledby="h-can">
-   <div class="ch"><h2 id="h-can" style="font-size:19px">Receita por canal</h2><span class="note">SET. 2026</span></div>
-   <div class="stack" role="img" aria-label="Corporativo 55%, E-commerce 30%, Lojas próprias 15%"><i style="width:55%;background:var(--inv)"></i><i style="width:30%;background:var(--gold)"></i><i style="width:15%;background:var(--mut);opacity:.5"></i></div>
-   <ul>
-    <li><span class="sw" style="background:var(--inv)"></span>Corporativo<b>R$ 1.364.000</b><em>55%</em></li>
-    <li><span class="sw" style="background:var(--gold)"></span>E-commerce<b>R$ 744.000</b><em>30%</em></li>
-    <li><span class="sw" style="background:var(--mut);opacity:.5"></span>Lojas próprias<b>R$ 372.000</b><em>15%</em></li>
-   </ul>
-   <div class="radar"><div class="k">NO RADAR DA DIRETORIA</div>Priorizar a pontualidade em Minas Gerais: 95,0%, a 3,0 p.p. da meta.<small>Operações · Revisão em 05 out.</small></div>
+   <div class="ch"><h2 id="h-can" style="font-size:19px">Receita por canal</h2><span class="note" id="cp"></span></div>
+   <div class="stack" id="stack" role="img"></div>
+   <ul id="chl"></ul>
+   <div class="radar"><div class="k">NO RADAR DA DIRETORIA</div><span id="rd"></span><small id="rdf"></small></div>
   </section>
  </div>
 </main>
 <footer><span>Dados ilustrativos para demonstração. Valores em reais (BRL), salvo indicação.</span><span>MANS FIGHTER / INTELIGÊNCIA DE NEGÓCIOS / 2026</span></footer>
+<dialog id="dlg"><div class="dh"><h2>Editar dados</h2><button type="button" class="btn" id="x">Fechar</button></div>
+<div class="db" id="dlgb"></div>
+<div class="df"><button type="button" class="btn" id="rst">Restaurar exemplo</button><button type="button" class="btn" id="exj">Baixar dados (.json)</button><label class="btn">Importar dados<input type="file" id="imp" accept=".json" hidden></label><span style="flex:1"></span><button type="button" class="btn dk" id="sv">Salvar</button></div></dialog>
 <script>
-document.querySelectorAll("svg[data-s]").forEach(function(s){
- var a=s.dataset.s.split(",").map(Number),mn=Math.min.apply(null,a),mx=Math.max.apply(null,a);
- var p=a.map(function(v,i){return (i*(80/(a.length-1))+1).toFixed(1)+","+(32-(v-mn)/(mx-mn)*28).toFixed(1)}).join(" ");
- s.setAttribute("viewBox","0 0 82 34");
- s.innerHTML='<polyline points="'+p+'" fill="none" stroke="'+(s.dataset.c||"var(--gold)")+'" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>';
-});
 (function(){
- var m=["Abr","Mai","Jun","Jul","Ago","Set"],r=[1.92,2.1,2.17,2.1,2.2,2.48],g=[1.95,2.12,2.27,2.4,2.5,2.6];
- var x0=56,x1=600,y0=16,y1=196,X=function(i){return x0+i*(x1-x0)/5},Y=function(v){return y1-(v-1.5)/1.5*(y1-y0)};
- var h="",t;
- [1.5,2.0,2.5,3.0].forEach(function(v){h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)"/><text x="'+(x0-10)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+v.toFixed(1).replace(".",",")+'</text>'});
- var pts=r.map(function(v,i){return X(i)+","+Y(v)}).join(" ");
- h+='<polygon points="'+X(0)+','+y1+' '+pts+' '+X(5)+','+y1+'" fill="var(--gold)" opacity=".12"/>';
- h+='<polyline points="'+g.map(function(v,i){return X(i)+","+Y(v)}).join(" ")+'" fill="none" stroke="var(--mut)" stroke-dasharray="4 4"/>';
+var K="mans-fighter-painel-v1";
+var DEF={per:"Setembro de 2026",prev:"agosto de 2026",cm:"Set",upd:"01 out., 09:30",
+rd:"Priorizar a pontualidade em Minas Gerais: 95,0%, a 3,0 p.p. da meta.",rdf:"Operações · Revisão em 05 out.",
+mr:2600000,mm:24,mt:98,nps:83,mn:80,
+units:[{n:"São Paulo",g:"SP · Sudeste",r:1116000,p:558,e:279000,t:98},{n:"Rio de Janeiro",g:"RJ · Sudeste",r:620000,p:310,e:155000,t:96},{n:"Minas Gerais",g:"MG · Sudeste",r:496000,p:248,e:124000,t:95},{n:"Paraná",g:"PR · Sul",r:248000,p:124,e:62000,t:97}],
+chans:[{n:"Corporativo",r:1364000},{n:"E-commerce",r:744000},{n:"Lojas próprias",r:372000}],
+hist:[{m:"Abr",r:1920000,g:1950000,e:400000,p:980,t:93},{m:"Mai",r:2100000,g:2120000,e:440000,p:1050,t:94},{m:"Jun",r:2170000,g:2270000,e:450000,p:1100,t:94.5},{m:"Jul",r:2100000,g:2400000,e:430000,p:1090,t:94},{m:"Ago",r:2200000,g:2500000,e:493600,p:1150,t:95.4}]};
+var BL={units:{n:"Nova unidade",g:"UF · Região",r:0,p:0,e:0,t:0},chans:{n:"Novo canal",r:0},hist:{m:"Mês",r:0,g:0,e:0,p:0,t:0}};
+var $=function(i){return document.getElementById(i)};
+var cl=function(o){return JSON.parse(JSON.stringify(o))};
+var esc=function(v){return String(v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")};
+var nf=function(n,d){d=d||0;return (+n||0).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d})};
+var brl=function(n){return "R$ "+nf(n)},mi=function(n){return "R$ "+nf(n/1e6,2)+" mi"};
+var p1=function(n){return nf(n,1)+"%"},sg=function(n){return (n>=0?"+":"−")+nf(Math.abs(n),1)},ar=function(n){return n>=0?"↗ ":"↘ "};
+var sum=function(a,k){return a.reduce(function(t,x){return t+(+x[k]||0)},0)};
+var D;
+try{var raw=localStorage.getItem(K);D=Object.assign(cl(DEF),raw?JSON.parse(raw):{})}catch(e){D=cl(DEF)}
+function save(){try{localStorage.setItem(K,JSON.stringify(D))}catch(e){}}
+
+function spark(){document.querySelectorAll("svg[data-s]").forEach(function(s){
+ var a=s.dataset.s.split(",").map(Number),mn=Math.min.apply(null,a),mx=Math.max.apply(null,a),rg=(mx-mn)||1;
+ var p=a.map(function(v,i){return (i*(80/Math.max(a.length-1,1))+1).toFixed(1)+","+(32-(v-mn)/rg*28).toFixed(1)}).join(" ");
+ s.setAttribute("viewBox","0 0 82 34");
+ s.innerHTML='<polyline points="'+p+'" fill="none" stroke="'+(s.dataset.c||"var(--gold)")+'" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>'})}
+
+function chart(rs,gs,ms){
+ var all=rs.concat(gs).map(function(v){return v/1e6}),mn=Math.min.apply(null,all),mx=Math.max.apply(null,all);
+ var raw=((mx-mn)||1)/3,cs=[.05,.1,.25,.5,1,2,5,10,20,50],st=cs.filter(function(c){return c>=raw})[0]||50;
+ var lo=Math.floor(mn/st)*st,hi=Math.ceil(mx/st)*st;if(hi<=lo)hi=lo+st;
+ var n=rs.length,x0=56,x1=600,y0=16,y1=196,X=function(i){return n>1?x0+i*(x1-x0)/(n-1):(x0+x1)/2},Y=function(v){return y1-(v/1e6-lo)/(hi-lo)*(y1-y0)},h="";
+ for(var v=lo;v<=hi+st/10;v+=st){h+='<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v*1e6)+'" y2="'+Y(v*1e6)+'" stroke="var(--line)"/><text x="'+(x0-10)+'" y="'+(Y(v*1e6)+3)+'" text-anchor="end">'+nf(v,st<.1?2:1)+'</text>'}
+ var pts=rs.map(function(v,i){return X(i)+","+Y(v)}).join(" ");
+ h+='<polygon points="'+X(0)+','+y1+' '+pts+' '+X(n-1)+','+y1+'" fill="var(--gold)" opacity=".12"/>';
+ h+='<polyline points="'+gs.map(function(v,i){return X(i)+","+Y(v)}).join(" ")+'" fill="none" stroke="var(--mut)" stroke-dasharray="4 4"/>';
  h+='<polyline points="'+pts+'" fill="none" stroke="var(--gold)" stroke-width="2"/>';
- r.forEach(function(v,i){h+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="'+(i==5?4:3)+'" fill="var(--gold)"/>'});
- m.forEach(function(l,i){h+='<text x="'+X(i)+'" y="226" text-anchor="middle"'+(i==5?' style="fill:var(--ink);font-weight:600"':'')+'>'+l+'</text>'});
- h+='<rect x="'+(X(5)-38)+'" y="'+(Y(2.48)-34)+'" width="76" height="24" rx="4" fill="var(--inv)"/><text x="'+X(5)+'" y="'+(Y(2.48)-18)+'" text-anchor="middle" style="fill:var(--invt);font-size:11px">R$ 2,48 mi</text>';
- document.getElementById("chart").innerHTML=h;
+ rs.forEach(function(v,i){h+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="'+(i==n-1?4:3)+'" fill="var(--gold)"/>'});
+ ms.forEach(function(l,i){h+='<text x="'+X(i)+'" y="226" text-anchor="middle"'+(i==n-1?' style="fill:var(--ink);font-weight:600"':'')+'>'+esc(l)+'</text>'});
+ var L=rs[n-1],tx=Math.min(X(n-1),x1-30);
+ h+='<rect x="'+(tx-38)+'" y="'+(Y(L)-34)+'" width="76" height="24" rx="4" fill="var(--inv)"/><text x="'+tx+'" y="'+(Y(L)-18)+'" text-anchor="middle" style="fill:var(--invt);font-size:11px">'+mi(L)+'</text>';
+ var c=$("chart");c.innerHTML=h;c.setAttribute("aria-label","Receita líquida de "+ms[0]+" a "+ms[n-1]+": de "+mi(rs[0])+" a "+mi(L))}
+
+function render(){
+ var U=D.units,H=D.hist,R=sum(U,"r"),E=sum(U,"e"),O=sum(U,"p");
+ var T=O?U.reduce(function(t,u){return t+u.t*u.p},0)/O:0;
+ var pv=H.length?H[H.length-1]:{r:0,e:0,p:0,t:0};
+ var cmg=R?E/R*100:0,pmg=pv.r?pv.e/pv.r*100:0;
+ var dr=pv.r?(R/pv.r-1)*100:0,de=pv.e?(E/pv.e-1)*100:0,dp=pv.p?(O/pv.p-1)*100:0;
+ var hs=function(k){return H.map(function(x){return x[k]}).concat([k=="r"?R:k=="e"?E:k=="p"?O:T])};
+ $("eb").textContent="PAINEL EXECUTIVO / "+D.per.replace(" de "," ").toUpperCase();
+ $("per").textContent=D.per;$("upd").textContent="Fechamento mensal · Atualizado em "+D.upd;
+ $("cmp").textContent="Comparativo: "+D.prev;$("rd").textContent=D.rd;$("rdf").textContent=D.rdf;
+ $("hm").textContent="Metas de "+D.per.split(" ")[0].toLowerCase();
+ $("cp").textContent=D.cm.toUpperCase()+". "+D.per.split(" ").pop();
+ var k=function(h,l,v,s,f){return '<div class="card kpi'+(h?' hero':'')+'"><div class="lb">'+l+'</div><div class="v">'+v+'</div><svg class="sp1" data-s="'+s.join(",")+'"'+(h?' data-c="#c9a96a"':'')+'></svg><div class="ft">'+f+'</div></div>'};
+ $("kpis").innerHTML=
+  k(1,"Receita líquida",mi(R),hs("r"),'<b>'+ar(dr)+sg(dr)+'%</b> vs. '+mi(pv.r)+' em '+esc(D.prev))+
+  k(0,"EBITDA",R?(E>=1e6?mi(E):"R$ "+nf(E/1e3)+" mil"):"R$ 0",hs("e"),'<b>'+ar(de)+sg(de)+'%</b> Margem de '+p1(cmg)+' · '+sg(cmg-pmg)+' p.p.')+
+  k(0,"Pedidos faturados",nf(O),hs("p"),'<b>'+ar(dp)+sg(dp)+'%</b> Ticket médio de '+brl(O?R/O:0))+
+  k(0,"Entregas no prazo",p1(T),hs("t"),'<b>'+ar(T-pv.t)+sg(T-pv.t)+' p.p.</b> Meta de '+p1(D.mt)+' · '+sg(T-D.mt)+' p.p.');
+ var G=[["Receita líquida",R,D.mr,mi],["Margem EBITDA",cmg,D.mm,p1],["Entregas no prazo",T,D.mt,p1],["NPS de clientes",D.nps,D.mn,function(v){return nf(v)+" pontos"}]],won=0;
+ $("goals").innerHTML=G.map(function(g){var pc=g[2]?g[1]/g[2]*100:0,ok=pc>=100;if(ok)won++;
+  return '<div class="goal'+(ok?' ok':'')+'"><div class="t"><span>'+g[0]+'</span><span>'+p1(pc)+'</span></div><div class="track"><i style="width:'+Math.min(100,pc)+'%"></i></div><div class="f"><span>'+g[3](g[1])+' / '+g[3](g[2])+'</span><span>'+(ok?"Superada":"Em atenção")+'</span></div></div>'}).join("");
+ $("badge").textContent=won+" de 4 superadas";
+ $("tb").innerHTML=U.slice().sort(function(a,b){return b.r-a.r}).map(function(u){var ok=u.t>=D.mt;
+  return '<tr><td><b>'+esc(u.n)+'</b><small>'+esc(u.g)+'</small></td><td><b style="display:inline">'+brl(u.r)+'</b></td><td>'+nf(R?u.r/R*100:0)+'%</td><td>'+nf(u.p)+'</td><td><b style="display:inline">'+brl(u.e)+'</b></td><td class="'+(ok?'dot':'g dot g')+'">'+p1(u.t)+'</td></tr>'}).join("");
+ $("tf").innerHTML='<tr><td>Total Mans Fighter</td><td>'+brl(R)+'</td><td>100%</td><td>'+nf(O)+'</td><td>'+brl(E)+'</td><td>'+p1(T)+'</td></tr>';
+ var C=D.chans,CT=sum(C,"r"),pal=["var(--inv)","var(--gold)","var(--mut)","#8a7a5a","#c9c5b6"];
+ $("stack").innerHTML=C.map(function(c,i){return '<i style="width:'+(CT?c.r/CT*100:0)+'%;background:'+pal[i%5]+'"></i>'}).join("");
+ $("stack").setAttribute("aria-label",C.map(function(c){return c.n+" "+nf(CT?c.r/CT*100:0)+"%"}).join(", "));
+ $("chl").innerHTML=C.map(function(c,i){return '<li><span class="sw" style="background:'+pal[i%5]+'"></span>'+esc(c.n)+'<b>'+brl(c.r)+'</b><em>'+nf(CT?c.r/CT*100:0)+'%</em></li>'}).join("");
+ var gr=H.length&&H[0].r?(R/H[0].r-1)*100:0,fl=D.mr-R;
+ $("bg").textContent=sg(gr)+"%";
+ $("bt").textContent="Receita "+(gr>=0?"cresce ":"cai ")+nf(Math.abs(gr),1).replace("-","")+"% desde "+(H.length?H[0].m:"o início")+". "+(fl>0?"Faltam "+brl(fl)+" para a meta de "+D.per.split(" ")[0].toLowerCase()+".":"Meta do mês superada.");
+ chart(hs("r"),H.map(function(x){return x.g}).concat([D.mr]),H.map(function(x){return x.m}).concat([D.cm]));
+ spark();
+}
+
+function fld(l,id,v,t,w){return '<label class="fl'+(w?' w':'')+'">'+l+'<input id="'+id+'" type="'+(t||"text")+'"'+(t=="number"?' step="any"':'')+' value="'+esc(v)+'"></label>'}
+function tbl(cls,key,cols,rows){return '<div class="tw"><table class="ed"><thead><tr>'+cols.map(function(c){return '<th>'+c[1]+'</th>'}).join("")+'<th></th></tr></thead><tbody>'+
+ rows.map(function(r){return '<tr class="'+cls+'">'+cols.map(function(c){return '<td><input data-k="'+c[0]+'" type="'+c[2]+'"'+(c[2]=="number"?' step="any"':'')+' value="'+esc(r[c[0]])+'" aria-label="'+c[1]+'"></td>'}).join("")+'<td><button type="button" class="btn" data-del="1" aria-label="Remover linha">×</button></td></tr>'}).join("")+
+ '</tbody></table></div><button type="button" class="btn" data-add="'+key+'">Adicionar linha</button>'}
+function show(d){$("dlgb").innerHTML=
+ '<h3>Informações gerais</h3><div class="fg">'+fld("Período","f-per",d.per)+fld("Mês anterior (comparativo)","f-prev",d.prev)+fld("Mês atual, abreviado","f-cm",d.cm)+fld("Data e hora da atualização","f-upd",d.upd)+fld("Destaque da diretoria","f-rd",d.rd,"text",1)+fld("Nota do destaque","f-rdf",d.rdf,"text",1)+'</div>'+
+ '<h3>Metas do mês</h3><div class="fg">'+fld("Meta de receita líquida (R$)","f-mr",d.mr,"number")+fld("Meta de margem EBITDA (%)","f-mm",d.mm,"number")+fld("Meta de entregas no prazo (%)","f-mt",d.mt,"number")+fld("NPS atual (pontos)","f-nps",d.nps,"number")+fld("Meta de NPS (pontos)","f-mn",d.mn,"number")+'</div>'+
+ '<h3>Unidades de negócio</h3>'+tbl("tu","units",[["n","Unidade","text"],["g","UF · Região","text"],["r","Receita líquida (R$)","number"],["p","Pedidos","number"],["e","EBITDA (R$)","number"],["t","No prazo (%)","number"]],d.units)+
+ '<h3>Canais de venda</h3>'+tbl("tc","chans",[["n","Canal","text"],["r","Receita (R$)","number"]],d.chans)+
+ '<h3>Histórico dos meses anteriores</h3>'+tbl("th","hist",[["m","Mês","text"],["r","Receita (R$)","number"],["g","Meta (R$)","number"],["e","EBITDA (R$)","number"],["p","Pedidos","number"],["t","No prazo (%)","number"]],d.hist)}
+function collect(){
+ var g=function(i){return $(i).value},n=function(i){return parseFloat(g(i))||0};
+ var tb=function(c){return [].slice.call(document.querySelectorAll("tr."+c)).map(function(tr){var o={};tr.querySelectorAll("input").forEach(function(i){o[i.dataset.k]=i.type=="number"?(parseFloat(i.value)||0):i.value});return o})};
+ return {per:g("f-per"),prev:g("f-prev"),cm:g("f-cm"),upd:g("f-upd"),rd:g("f-rd"),rdf:g("f-rdf"),mr:n("f-mr"),mm:n("f-mm"),mt:n("f-mt"),nps:n("f-nps"),mn:n("f-mn"),units:tb("tu"),chans:tb("tc"),hist:tb("th")}}
+
+$("edit").onclick=function(e){e.preventDefault();show(D);$("dlg").showModal()};
+$("x").onclick=function(){$("dlg").close()};
+$("sv").onclick=function(){D=collect();save();render();$("dlg").close()};
+$("exp").onclick=function(){window.print()};
+$("rst").onclick=function(){if(confirm("Restaurar os dados de exemplo? Os dados atuais serão substituídos.")){D=cl(DEF);save();render();show(D)}};
+$("dlgb").onclick=function(e){var t=e.target;
+ if(t.dataset.add){var d=collect();d[t.dataset.add].push(cl(BL[t.dataset.add]));show(d)}
+ else if(t.dataset.del){t.closest("tr").remove()}};
+$("exj").onclick=function(){var b=new Blob([JSON.stringify(collect(),null,2)],{type:"application/json"}),a=document.createElement("a");
+ a.href=URL.createObjectURL(b);a.download="painel-mans-fighter-dados.json";a.click()};
+$("imp").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){try{D=Object.assign(cl(DEF),JSON.parse(r.result));save();render();show(D)}catch(x){alert("Arquivo inválido. Use um .json baixado deste painel.")}};r.readAsText(f);e.target.value=""};
+render();
 })();
 </script>
 </body>
